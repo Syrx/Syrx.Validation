@@ -9,7 +9,7 @@ environment:
 install:
   - ps: $env:DOTNET_INSTALL_DIR = "$pwd\.dotnetsdk"
   - ps: mkdir $env:DOTNET_INSTALL_DIR -Force | Out-Null
-  - ps: Invoke-WebRequest -Uri "https://raw.githubusercontent.com/sextondjc/Syrx.Validation/2.0.0/dotnet-install.ps1" -OutFile "$($env:DOTNET_INSTALL_DIR)/dotnet-install.ps1"
+  - ps: Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Syrx/Syrx.Validation/master/dotnet-install.ps1" -OutFile "$($env:DOTNET_INSTALL_DIR)/dotnet-install.ps1"
   - ps: '& "$($env:DOTNET_INSTALL_DIR)/dotnet-install.ps1" -Version $env:CLI_VERSION -InstallDir $env:DOTNET_INSTALL_DIR'
   - ps: $env:Path = "$env:DOTNET_INSTALL_DIR;$env:Path"
 
@@ -22,4 +22,4 @@ build_script:
 
 test_script:
     - ps: dotnet test .\Syrx.Validation.Tests\Syrx.Validation.Tests.csproj  
-version: 2.0.1.{build}
+version: 1.0.0.{build}
