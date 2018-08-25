@@ -141,7 +141,7 @@ public class Person
 
 [Nuget](https://www.nuget.org/packages/Syrx.Validation/), of course. 
 
-``Install-Package Syrx.Validation```
+```Install-Package Syrx.Validation```
 
 
 #### Anything else I should know? 
