@@ -8,14 +8,12 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>sextondjc</Authors>
     <Company>sextondjc</Company>
-    <Copyright>https://github.com/sextondjc/Syrx.Validation</Copyright>
-    <PackageLicenseUrl>https://github.com/sextondjc/Syrx.Validation</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/sextondjc/Syrx.Validation</PackageProjectUrl>
+    <Copyright>https://github.com/Syrx/Syrx.Validation</Copyright>
+    <PackageLicenseUrl>https://github.com/Syrx/Syrx.Validation</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Syrx/Syrx.Validation</PackageProjectUrl>
     <PackageIconUrl></PackageIconUrl>
-    <RepositoryUrl>https://github.com/sextondjc/Syrx.Validation</RepositoryUrl>
-    <Description>
-      A very simple precondition checker with very few dependencies and very little overhead. 
-    </Description>
+    <RepositoryUrl>https://github.com/Syrx/Syrx.Validation</RepositoryUrl>
+    <Description>A very simple precondition checker with very few dependencies and very little overhead.</Description>
     <PackageReleaseNotes>Now with added delegates!</PackageReleaseNotes>
     <LangVersion>default</LangVersion>
   </PropertyGroup>
