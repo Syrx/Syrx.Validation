@@ -41,5 +41,17 @@ namespace Syrx.Validation
             Require<ArgumentNullException>(!string.IsNullOrWhiteSpace(message), nameof(message));
             throw (TException) Activator.CreateInstance(typeof(TException), string.Format(message, args), innerException);
         }
+
+        /// <summary>
+        /// Evaluates the supplied condition and invokes the exception factory if it fails.
+        /// </summary>
+        /// <typeparam name="TException">The type of exception which would be thrown</typeparam>
+        /// <param name="condition">The condition to be evaluated</param>
+        /// <param name="exceptionFactory">The delegate to be invoked for the exception factory.</param>
+        public static void Require<TException>(bool condition, Func<TException> exceptionFactory) where TException : Exception
+        {
+            if(condition) return;
+            throw exceptionFactory();
+        }
     }    
 }

@@ -17,6 +17,7 @@
 
 Renamed to Syrx from Drapper.</Description>
     <PackageReleaseNotes>Ported to netstandard 2.0.</PackageReleaseNotes>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
