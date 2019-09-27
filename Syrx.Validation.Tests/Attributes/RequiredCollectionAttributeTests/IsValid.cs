@@ -19,7 +19,7 @@ namespace Syrx.Validation.Tests.Attributes.RequiredCollectionAttributeTests
         {
             var attribute = new RequiredCollectionAttribute(0, 0);            
             var exception = Throws<ArgumentNullException>(() => attribute.IsValid(null));
-            Equal("Value cannot be null.\r\nParameter name: The object passed to the attribute was null.", exception.Message);
+            Equal("Value cannot be null. (Parameter 'The object passed to the attribute was null.')", exception.Message);
         }
 
         [Fact]        

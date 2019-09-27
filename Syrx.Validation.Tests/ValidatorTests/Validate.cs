@@ -38,7 +38,7 @@ namespace Syrx.Validation.Tests.ValidatorTests
         public void NullObjectThrowsArgumentNullException()
         {            
             var exception = Throws<ArgumentNullException>(() => Validate<object>(null));
-            Equal("Value cannot be null.\r\nParameter name: The item passed for validation was null.", exception.Message);
+            Equal("Value cannot be null. (Parameter 'The item passed for validation was null.')", exception.Message);
         }
 
         [Fact]
@@ -72,7 +72,7 @@ namespace Syrx.Validation.Tests.ValidatorTests
             var collection = new List<ValidatorWidget>();
             collection = null;
             var exception = Throws<ArgumentNullException>(() => ValidateCollection(collection));
-            Equal("Value cannot be null.\r\nParameter name: The collection passed for validation was null.", exception.Message);
+            Equal("Value cannot be null. (Parameter 'The collection passed for validation was null.')", exception.Message);
         }
     }
 }

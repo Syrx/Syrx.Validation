@@ -18,7 +18,7 @@ namespace Syrx.Validation.Tests.Attributes.RequiredDateAttributeTests
         {
             var attribute = new RequiredDateAttribute();
             var exception = Throws<ArgumentNullException>(() => attribute.IsValid(null));
-            Equal("Value cannot be null.\r\nParameter name: A value must be supplied to the RequiredDateAttribute.", exception.Message);
+            Equal("Value cannot be null. (Parameter 'A value must be supplied to the RequiredDateAttribute.')", exception.Message);
         }
 
         [Fact]        
