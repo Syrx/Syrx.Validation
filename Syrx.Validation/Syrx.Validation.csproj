@@ -9,12 +9,12 @@
     <Authors>sextondjc</Authors>
     <Company>sextondjc</Company>
     <Copyright>https://github.com/Syrx/Syrx.Validation</Copyright>
-    <PackageLicenseUrl>https://github.com/Syrx/Syrx.Validation</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Syrx/Syrx.Validation</PackageProjectUrl>
     <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/Syrx/Syrx.Validation</RepositoryUrl>
     <Description>A very simple precondition checker with very few dependencies and very little overhead.</Description>
     <PackageReleaseNotes>Updated to netstandard 2.1</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
