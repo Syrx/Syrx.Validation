@@ -20,10 +20,10 @@ namespace Syrx.Validation
         /// <param name="condition">The condition to be evaluated.</param>
         /// <param name="message">Optional information to appear in the exception message.</param>
         /// <param name="args">Any additional arguments to be part of the exception message.</param>
-        public static void Require<TException>(bool condition, string message, params object[] args) where TException : Exception
+        public static void Throw<TException>(bool condition, string message, params object[] args) where TException : Exception
         {
             if (condition) return;
-            Require<ArgumentNullException>(!string.IsNullOrWhiteSpace(message), nameof(message));
+            Throw<ArgumentNullException>(!string.IsNullOrWhiteSpace(message), nameof(message));
             throw (TException) Activator.CreateInstance(typeof(TException), string.Format(message, args));
         }
 
@@ -35,10 +35,10 @@ namespace Syrx.Validation
         /// <param name="message">Optional information to appear in the exception message.</param>
         /// <param name="innerException">An optional inner exception to include with the exception.</param>
         /// <param name="args">Any additional arguments to be part of the exception message.</param>
-        public static void Require<TException>(bool condition, string message, Exception innerException = null, params object[] args) where TException : Exception
+        public static void Throw<TException>(bool condition, string message, Exception innerException = null, params object[] args) where TException : Exception
         {
             if (condition) return;
-            Require<ArgumentNullException>(!string.IsNullOrWhiteSpace(message), nameof(message));
+            Throw<ArgumentNullException>(!string.IsNullOrWhiteSpace(message), nameof(message));
             throw (TException) Activator.CreateInstance(typeof(TException), string.Format(message, args), innerException);
         }
 
@@ -48,7 +48,7 @@ namespace Syrx.Validation
         /// <typeparam name="TException">The type of exception which would be thrown</typeparam>
         /// <param name="condition">The condition to be evaluated</param>
         /// <param name="exceptionFactory">The delegate to be invoked for the exception factory.</param>
-        public static void Require<TException>(bool condition, Func<TException> exceptionFactory) where TException : Exception
+        public static void Throw<TException>(bool condition, Func<TException> exceptionFactory) where TException : Exception
         {
             if(condition) return;
             throw exceptionFactory();

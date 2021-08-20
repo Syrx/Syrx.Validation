@@ -25,9 +25,9 @@ namespace Syrx.Validation.Attributes
 
             if(value != null)
             {
-                if(value is Guid)
+                if(value is Guid guid)
                 {
-                    if(((Guid)value) != Guid.Empty)
+                    if(guid != Guid.Empty)
                     {
                         result = true;
                     }

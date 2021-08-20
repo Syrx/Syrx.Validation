@@ -35,8 +35,8 @@ namespace Syrx.Validation.Attributes
         public override bool IsValid(object value)
         {
             // preconditions. 
-            Require<ArgumentNullException>(value != null, "A value must be supplied to the RequiredDateAttribute.");
-            Require<ArgumentException>(value.GetType() == typeof(DateTime), "The value supplied to the RequiredDateAttribute ({0}) was not a DateTime type.", value);
+            Throw<ArgumentNullException>(value != null, "A value must be supplied to the RequiredDateAttribute.");
+            Throw<ArgumentException>(value.GetType() == typeof(DateTime), "The value supplied to the RequiredDateAttribute ({0}) was not a DateTime type.", value);
 
             var result = false;                        
             var toValidate = Convert.ToDateTime(value);

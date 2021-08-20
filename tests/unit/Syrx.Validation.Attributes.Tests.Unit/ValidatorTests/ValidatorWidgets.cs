@@ -6,7 +6,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Syrx.Validation.Tests.ValidatorTests
+namespace Syrx.Validation.Attributes.Tests.Unit.ValidatorTests
 {
     // simple poco's for testing Validator. 
     // all widgets derive from a common interface

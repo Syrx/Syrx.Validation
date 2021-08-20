@@ -3,13 +3,12 @@
 // date             : 2015.12.23
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
-using Syrx.Validation.Attributes;
+
 using System;
 using Xunit;
-
 using static Xunit.Assert;
 
-namespace Syrx.Validation.Tests.Attributes.RequiredGuidAttributeTests
+namespace Syrx.Validation.Attributes.Tests.Unit.RequiredGuidAttributeTests
 {    
     public class IsValid
     {

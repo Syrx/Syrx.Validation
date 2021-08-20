@@ -12,12 +12,12 @@ using static Xunit.Assert;
 
 namespace Syrx.Validation.Tests.ContractTests
 {
-    public class Require
+    public class Throw
     {
         [Fact]
         public void InvalidConditionThrowsArgumentException()
         {
-            var exception = Throws<ArgumentException>(() => Require<ArgumentException>(false, "Validation test"));
+            var exception = Throws<ArgumentException>(() => Throw<ArgumentException>(false, "Validation test"));
             Equal("Validation test", exception.Message);
             Null(exception.InnerException);
         }
@@ -25,39 +25,39 @@ namespace Syrx.Validation.Tests.ContractTests
         [Fact]
         public void SupportsArbitraryExceptionFactoryNoParams()
         {
-            Require(true, () => new Exception());
+            Throw(true, () => new Exception());
         }
 
         [Fact]
         public void SupportsArbitraryExceptionWithInnerExceptionAndNoParams()
         {
             var innerException = new Exception("Inner exception");
-            Require<Exception>(true, "Test", innerException);
+            Throw<Exception>(true, "Test", innerException);
         }
 
         [Fact]
         public void SupportsArbitraryExceptionWithInnerExceptionAndParams()
         {
             var innerException = new Exception("Inner exception");
-            Require<Exception>(true, "Test {0} {1}", innerException, 1, "2");
+            Throw<Exception>(true, "Test {0} {1}", innerException, 1, "2");
         }
 
         [Fact]
         public void SupportsArbitraryExceptionWithoutInnerExceptionAndParams()
         {
-            Require<Exception>(true, "Test {0} {1}", 1, "2");
+            Throw<Exception>(true, "Test {0} {1}", 1, "2");
         }
 
         [Fact]
         public void SupportsArbitraryExceptionWithoutInnerExceptionOrParams()
         {
-            Require<Exception>(true, "Test");
+            Throw<Exception>(true, "Test");
         }
 
         [Fact]
         public void ThrowsArbitraryExceptionFromFactoryWithNoParams()
         {
-            var result = Throws<Exception>(() => Require(false, () => new Exception("unit test")));
+            var result = Throws<Exception>(() => Throw(false, () => new Exception("unit test")));
             Equal("unit test", result.Message);
         }
 
@@ -65,7 +65,7 @@ namespace Syrx.Validation.Tests.ContractTests
         public void ThrowsArbitraryExceptionWithInnerExceptionAndNoParams()
         {
             var innerException = new Exception("Inner exception");
-            var exception = Throws<Exception>(() => Require<Exception>(false, "Test", innerException));
+            var exception = Throws<Exception>(() => Throw<Exception>(false, "Test", innerException));
             Equal("Test", exception.Message);
             NotNull(exception.InnerException);
         }
@@ -74,7 +74,7 @@ namespace Syrx.Validation.Tests.ContractTests
         public void ThrowsArbitraryExceptionWithInnerExceptionAndParams()
         {
             var innerException = new Exception("Inner exception");
-            var exception = Throws<Exception>(() => Require<Exception>(false, "Test {0} {1}", innerException, 1, "2"));
+            var exception = Throws<Exception>(() => Throw<Exception>(false, "Test {0} {1}", innerException, 1, "2"));
             Equal("Test 1 2", exception.Message);
             NotNull(exception.InnerException);
         }
@@ -82,7 +82,7 @@ namespace Syrx.Validation.Tests.ContractTests
         [Fact]
         public void ThrowsArbitraryExceptionWithoutInnerExceptionAndParams()
         {
-            var exception = Throws<Exception>(() => Require<Exception>(false, "Test {0} {1}", 1, "2"));
+            var exception = Throws<Exception>(() => Throw<Exception>(false, "Test {0} {1}", 1, "2"));
             Equal("Test 1 2", exception.Message);
             Null(exception.InnerException);
         }
@@ -90,7 +90,7 @@ namespace Syrx.Validation.Tests.ContractTests
         [Fact]
         public void ThrowsArbitraryExceptionWithoutInnerExceptionOrParams()
         {
-            var exception = Throws<Exception>(() => Require<Exception>(false, "Test"));
+            var exception = Throws<Exception>(() => Throw<Exception>(false, "Test"));
             Equal("Test", exception.Message);
             Null(exception.InnerException);
         }
@@ -99,7 +99,7 @@ namespace Syrx.Validation.Tests.ContractTests
         public void ValidConditionWillNotThrowAnException()
         {
             const bool condition = true;
-            Require<Exception>(condition, "Validation test");
+            Throw<Exception>(condition, "Validation test");
         }
     }
 }

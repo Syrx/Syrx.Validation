@@ -8,7 +8,7 @@ using System;
 using Xunit;
 using static Xunit.Assert;
 
-namespace Syrx.Validation.Tests.ValidatorTests
+namespace Syrx.Validation.Attributes.Tests.Unit.ValidatorTests
 {
     /// <summary>
     /// Used soley for example.
@@ -24,7 +24,7 @@ namespace Syrx.Validation.Tests.ValidatorTests
         public void NameIsNullEmptyWhitespaceThrowsArgumentNullException(string name)
         {
             var result = Throws<ArgumentNullException>(() => new Person(name, this.DateOfBirth));
-            Equal("Value cannot be null.\r\nParameter name: name", result.Message);
+            result.ArgumentNull(nameof(name));
         }
 
         [Fact]
@@ -32,22 +32,21 @@ namespace Syrx.Validation.Tests.ValidatorTests
         {
             var name = new string('a', 51);
             var result = Throws<ArgumentOutOfRangeException>(() => new Person(name, DateOfBirth));
-            Equal("Specified argument was out of the range of valid values.\r\nParameter name: name", result.Message);
+            result.ArgumentOutOfRange(nameof(name));
         }
 
         [Fact]
         public void MinDateOfBirthThrowsArgumentOutOfRangeException()
         {
             var result = Throws<ArgumentOutOfRangeException>(() => new Person("Test", DateTime.MinValue));
-            Equal("Specified argument was out of the range of valid values.\r\nParameter name: dateOfBirth", result.Message);
-
+            result.ArgumentOutOfRange("dateOfBirth");
         }
 
         [Fact]
         public void MaxDateOfBirthThrowsArgumentOutOfRangeException()
         {
             var result = Throws<ArgumentOutOfRangeException>(() => new Person("Test", DateTime.MaxValue));
-            Equal("Specified argument was out of the range of valid values.\r\nParameter name: dateOfBirth", result.Message);
+            result.ArgumentOutOfRange("dateOfBirth");
         }
 
 
@@ -56,7 +55,18 @@ namespace Syrx.Validation.Tests.ValidatorTests
         {
             var dateOfBirth = DateTime.Now.AddDays(1);
             var result = Throws<ArgumentOutOfRangeException>(() => new Person("Test", dateOfBirth));
-            Equal("Specified argument was out of the range of valid values.\r\nParameter name: dateOfBirth", result.Message);
+            result.ArgumentOutOfRange("dateOfBirth");
+        }
+
+
+        [Fact]
+        public void ReturnsValidInstance()
+        {
+            const string name = "Test";
+            var dateOfBirth = DateTime.Now.AddYears(-25);
+            var result = new Person(name, dateOfBirth);
+            Equal(name, result.Name);
+            Equal(dateOfBirth, result.DateOfBirth);
         }
     }
 }

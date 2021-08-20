@@ -29,7 +29,7 @@ namespace Syrx.Validation.Attributes
         
         public override bool IsValid(object value)
         {            
-            Require<ArgumentNullException>(value != null, "The object passed to the attribute was null.");            
+            Throw<ArgumentNullException>(value != null, "The object passed to the attribute was null.");            
 
             // cast to IEnumerable & get length
             var length = ((IEnumerable) value).Cast<object>().Count();

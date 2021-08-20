@@ -4,12 +4,12 @@
 // modified         : 2017-03-11 (16:31)
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
-using Syrx.Validation.Attributes;
+
 using System;
 using Xunit;
 using static Xunit.Assert;
 
-namespace Syrx.Validation.Tests.Attributes.RequiredDateAttributeTests
+namespace Syrx.Validation.Attributes.Tests.Unit.RequiredDateAttributeTests
 {    
     public class IsValid
     {
@@ -17,8 +17,8 @@ namespace Syrx.Validation.Tests.Attributes.RequiredDateAttributeTests
         public void NullObjectNotSupported()
         {
             var attribute = new RequiredDateAttribute();
-            var exception = Throws<ArgumentNullException>(() => attribute.IsValid(null));
-            Equal("Value cannot be null.\r\nParameter name: A value must be supplied to the RequiredDateAttribute.", exception.Message);
+            var exception = Throws<ArgumentNullException>(() => attribute.IsValid(null)); 
+            exception.HasMessage("Value cannot be null. (Parameter 'A value must be supplied to the RequiredDateAttribute.')");
         }
 
         [Fact]        
@@ -27,7 +27,7 @@ namespace Syrx.Validation.Tests.Attributes.RequiredDateAttributeTests
             var value = "test";
             var attribute = new RequiredDateAttribute();
             var exception = Throws<ArgumentException>(() => attribute.IsValid(value));
-            Equal("The value supplied to the RequiredDateAttribute (test) was not a DateTime type.", exception.Message);
+            exception.HasMessage("The value supplied to the RequiredDateAttribute (test) was not a DateTime type.");
         }
 
         [Fact]

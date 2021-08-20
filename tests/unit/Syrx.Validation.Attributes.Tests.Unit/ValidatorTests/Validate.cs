@@ -3,16 +3,16 @@
 // date             : 2015.12.23
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
+
+// not to be confused with System.ComponentModel.DataAnnotations Validator. 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
-
-// not to be confused with System.ComponentModel.DataAnnotations Validator. 
-using static Syrx.Validation.Validator;
+using static Syrx.Validation.Attributes.Validator;
 using static Xunit.Assert;
 
-namespace Syrx.Validation.Tests.ValidatorTests
+namespace Syrx.Validation.Attributes.Tests.Unit.ValidatorTests
 {    
     public class Validate
     {
@@ -31,14 +31,14 @@ namespace Syrx.Validation.Tests.ValidatorTests
         {
             var widget = new ValidatorWidget();
             var exception = Throws<ValidationException>(() => Validate(widget));
-            Equal("The Name field is required.\r\n", exception.Message);
+            exception.HasMessage("The Name field is required.\r\n");
         }
 
         [Fact]        
         public void NullObjectThrowsArgumentNullException()
         {            
             var exception = Throws<ArgumentNullException>(() => Validate<object>(null));
-            Equal("Value cannot be null.\r\nParameter name: The item passed for validation was null.", exception.Message);
+            exception.ArgumentNull("The item passed for validation was null.");
         }
 
         [Fact]
@@ -46,8 +46,8 @@ namespace Syrx.Validation.Tests.ValidatorTests
         {
             var collection = new List<ValidatorWidget>
             {
-                new ValidatorWidget { Name = "Test 1" },
-                new ValidatorWidget { Name = "Test 2" }
+                new() { Name = "Test 1" },
+                new() { Name = "Test 2" }
             };
 
             ValidateCollection(collection);
@@ -58,12 +58,12 @@ namespace Syrx.Validation.Tests.ValidatorTests
         {
             var collection = new List<ValidatorWidget>
             {
-                new ValidatorWidget { Name = "Test 1" },
-                new ValidatorWidget { Name = "" }
+                new() { Name = "Test 1" },
+                new() { Name = "" }
             };
             
             var exception = Throws<ValidationException>(() => ValidateCollection(collection));
-            Equal("The Name field is required.\r\n", exception.Message);
+            exception.HasMessage("The Name field is required.\r\n");
         }
 
         [Fact]        
@@ -72,7 +72,7 @@ namespace Syrx.Validation.Tests.ValidatorTests
             var collection = new List<ValidatorWidget>();
             collection = null;
             var exception = Throws<ArgumentNullException>(() => ValidateCollection(collection));
-            Equal("Value cannot be null.\r\nParameter name: The collection passed for validation was null.", exception.Message);
+            exception.ArgumentNull("The collection passed for validation was null.");
         }
     }
 }

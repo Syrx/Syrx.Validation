@@ -4,6 +4,7 @@
 // modified         : 2017-03-11 (16:00)
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +12,7 @@ using System.Text;
 using static System.ComponentModel.DataAnnotations.Validator;
 using static Syrx.Validation.Contract;
 
-namespace Syrx.Validation
+namespace Syrx.Validation.Attributes
 {
     /// <summary>
     /// A lightweight validation helper class which can be used to 
@@ -27,7 +28,7 @@ namespace Syrx.Validation
         public static void Validate<T>(T item)
         {
             // kick out nulls
-            Require<ArgumentNullException>(item != null, "The item passed for validation was null.");
+            Throw<ArgumentNullException>(item != null, "The item passed for validation was null.");
             
             var context = new ValidationContext(
                 item,
@@ -55,7 +56,7 @@ namespace Syrx.Validation
 
         public static void ValidateCollection<T>(IEnumerable<T> items)
         {
-            Require<ArgumentNullException>(items != null, "The collection passed for validation was null.");
+            Throw<ArgumentNullException>(items != null, "The collection passed for validation was null.");
             foreach (var item in items)
             {
                 Validate(item);
