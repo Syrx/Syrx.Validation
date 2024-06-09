@@ -1,14 +1,8 @@
 ﻿// ============================================================================================================================= 
 // author           : david sexton (@sextondjc | sextondjc.com)
 // date             : 2015.12.23
-// modified         : 2017-03-11 (16:50)
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
-using System;
-using System.Collections;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using static Syrx.Validation.Contract;
 
 namespace Syrx.Validation.Attributes
 {

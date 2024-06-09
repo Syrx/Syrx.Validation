@@ -3,7 +3,6 @@
 // date             : 2015.12.23
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
-using System;
 
 namespace Syrx.Validation.Attributes
 {

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <AssemblyName>Syrx.Validation.Attributes</AssemblyName>
     <RootNamespace>Syrx.Validation.Attributes</RootNamespace>
     <Version>1.0.0</Version>
