@@ -1,0 +1,7 @@
+version: 2.0.0.{build}
+image: Visual Studio 2022
+build:
+  publish_nuget: true
+  verbosity: minimal
+deploy:
+- provider: NuGet
