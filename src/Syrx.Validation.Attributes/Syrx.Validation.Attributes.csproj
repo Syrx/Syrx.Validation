@@ -7,9 +7,8 @@
     <Version>1.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>sextondjc</Authors>
-    <Company>sextondjc</Company>
+    <Company>Syrx</Company>
     <Copyright>https://github.com/Syrx/Syrx.Validation</Copyright>
-    <PackageLicenseUrl>https://github.com/Syrx/Syrx.Validation</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Syrx/Syrx.Validation</PackageProjectUrl>
     <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/Syrx/Syrx.Validation</RepositoryUrl>
@@ -25,5 +24,29 @@
   <ItemGroup>
     <ProjectReference Include="..\Syrx.Validation\Syrx.Validation.csproj" />
   </ItemGroup>
+
+	<PropertyGroup>
+		<EnablePackageValidation>true</EnablePackageValidation>
+
+		<!-- Optional: Detect breaking changes from a previous version -->
+		<!-- <PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion> -->
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<!-- If all members are not documented, you can disable the compiler warnings -->
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<PropertyGroup>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
 
 </Project>

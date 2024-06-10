@@ -2,24 +2,47 @@
 
   <PropertyGroup>
 	  <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-    <AssemblyName>Syrx.Validation</AssemblyName>
-    <RootNamespace>Syrx.Validation</RootNamespace>
-    <Version>2.0.0</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>sextondjc</Authors>
-    <Company>sextondjc</Company>
-    <Copyright>https://github.com/Syrx/Syrx.Validation</Copyright>
-    <PackageLicenseUrl>https://github.com/Syrx/Syrx.Validation</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/Syrx/Syrx.Validation</PackageProjectUrl>
-    <PackageIconUrl></PackageIconUrl>
-    <RepositoryUrl>https://github.com/Syrx/Syrx.Validation</RepositoryUrl>
-    <Description>A very simple precondition checker with very few dependencies and very little overhead.</Description>
-    <PackageReleaseNotes>Now with added delegates!</PackageReleaseNotes>
-    <LangVersion>default</LangVersion>
+	  <AssemblyName>Syrx.Validation</AssemblyName>
+	  <RootNamespace>Syrx.Validation</RootNamespace>
+	  <Version>2.0.0</Version>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <Authors>sextondjc</Authors>
+	  <Company>Syrx</Company>
+	  <Copyright>https://github.com/Syrx/Syrx.Validation</Copyright>
+	  <PackageProjectUrl>https://github.com/Syrx/Syrx.Validation</PackageProjectUrl>
+	  <PackageIconUrl></PackageIconUrl>
+	  <RepositoryUrl>https://github.com/Syrx/Syrx.Validation</RepositoryUrl>
+	  <Description>A very simple precondition checker with very few dependencies and very little overhead.</Description>
+	  <PackageReleaseNotes>Now with added delegates!</PackageReleaseNotes>
+	  <LangVersion>default</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>false</Optimize>
+	  <Optimize>false</Optimize>
   </PropertyGroup>
+	
+	<PropertyGroup>
+		<EnablePackageValidation>true</EnablePackageValidation>
+
+		<!-- Optional: Detect breaking changes from a previous version -->
+		<!-- <PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion> -->
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<!-- If all members are not documented, you can disable the compiler warnings -->
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<PropertyGroup>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
 
 </Project>
