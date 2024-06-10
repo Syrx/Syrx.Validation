@@ -81,7 +81,7 @@ public class Person
 
 ### Better, I think.
 
-Using the `Contract` precondtion checker we can collapse those conditions into much simpler statements - _require_ the condition to be true, otherwise throw an exception. 
+Using the `Contract` precondtion checker we can collapse those conditions into much simpler statements - _require_ the condition to be true, otherwise _throw_ an exception. 
 
 
 ```cs
@@ -94,9 +94,9 @@ public class Person
 
     public Person(string name, DateTime dateOfBirth)
     {
-        Require<ArgumentNullException>(!string.IsNullOrWhiteSpace(name), nameof(name));
-        Require<ArgumentOutOfRangeException>(name.Length <= 50, nameof(name));
-        Require<ArgumentOutOfRangeException>(!(dateOfBirth == DateTime.MinValue ||
+        Throw<ArgumentNullException>(!string.IsNullOrWhiteSpace(name), nameof(name));
+        Throw<ArgumentOutOfRangeException>(name.Length <= 50, nameof(name));
+        Throw<ArgumentOutOfRangeException>(!(dateOfBirth == DateTime.MinValue ||
                                                dateOfBirth == DateTime.MaxValue ||
                                                dateOfBirth > DateTime.Now), nameof(dateOfBirth));
 
@@ -109,7 +109,7 @@ public class Person
 
 ### Now with added delegates!
 
-Useful as the `Require<T>` method is, it can be a little limiting when you need very fine control over the exception. Never fear though - the 1.1.0 version now allows you to pass your own `Func<TException>` delegate to be invoked if your required condition evaluates to false. 
+Useful as the `Throw<T>` method is, it can be a little limiting when you need very fine control over the exception. Never fear though - the 1.1.0 version now allows you to pass your own `Func<TException>` delegate to be invoked if your required condition evaluates to false. 
 
 Using our super trivial example again, our validation can be re-written again. It's functionally equivalent, and a couple more keystrokes, but shows how you can roll your own exception invocation. 
 
@@ -124,9 +124,9 @@ public class Person
 
     public Person(string name, DateTime dateOfBirth)
     {
-        Require(!string.IsNullOrWhiteSpace(name), () => new ArgumentNullException(nameof(name)));
-        Require(name.Length <= 50, () => new ArgumentOutOfRangeException(nameof(name)));
-        Require(!(dateOfBirth == DateTime.MinValue || 
+        Throw(!string.IsNullOrWhiteSpace(name), () => new ArgumentNullException(nameof(name)));
+        Throw(name.Length <= 50, () => new ArgumentOutOfRangeException(nameof(name)));
+        Throw(!(dateOfBirth == DateTime.MinValue || 
                   dateOfBirth == DateTime.MaxValue ||
                   dateOfBirth > DateTime.Now), () => new ArgumentOutOfRangeException(nameof(dateOfBirth)));
         
@@ -146,7 +146,7 @@ public class Person
 
 #### Anything else I should know? 
 
-First, I find that the `Contract.Require<T>` method is insanely useful. Your mileage may vary. You might like using this library. Then again, you might not. I hope you do. 
+First, I find that the `Contract.Throw<T>` method is insanely useful. Your mileage may vary. You might like using this library. Then again, you might not. I hope you do. 
 
 Second, this is probably the most documentation that you're going to get on this. It's a really simple library and you're smart. 
 
