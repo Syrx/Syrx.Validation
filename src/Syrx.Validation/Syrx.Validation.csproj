@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+	  <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
 	  <AssemblyName>Syrx.Validation</AssemblyName>
 	  <RootNamespace>Syrx.Validation</RootNamespace>
-	  <Version>2.0.0</Version>
+	  <Version>3.0.0</Version>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <Authors>sextondjc</Authors>
 	  <Company>Syrx</Company>
@@ -13,7 +13,8 @@
 	  <PackageIconUrl></PackageIconUrl>
 	  <RepositoryUrl>https://github.com/Syrx/Syrx.Validation</RepositoryUrl>
 	  <Description>A very simple precondition checker with very few dependencies and very little overhead.</Description>
-	  <PackageReleaseNotes>Now with added delegates!</PackageReleaseNotes>
+	  <PackageReleaseNotes>Version 3.0.0: Breaking change - Removed .NET 6.0 support, added .NET 9.0 support. Now targets .NET 8.0 and .NET 9.0.</PackageReleaseNotes>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <LangVersion>default</LangVersion>
   </PropertyGroup>
 
@@ -44,5 +45,9 @@
 	<PropertyGroup>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
 </Project>

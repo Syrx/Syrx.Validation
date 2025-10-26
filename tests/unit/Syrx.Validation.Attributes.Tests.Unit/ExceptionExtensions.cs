@@ -1,6 +1,3 @@
-﻿using System;
-using static Xunit.Assert;
-
 namespace Syrx.Validation.Attributes.Tests.Unit
 {
     public static class ExceptionExtensions

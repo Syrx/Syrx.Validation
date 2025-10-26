@@ -1,12 +1,8 @@
-﻿// ============================================================================================================================= 
+// ============================================================================================================================= 
 // author           : david sexton (@sextondjc | sextondjc.com)
 // date             : 2015.12.23
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
-
-using System;
-using Xunit;
-using static Xunit.Assert;
 
 namespace Syrx.Validation.Attributes.Tests.Unit.ValidatorTests
 {

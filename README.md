@@ -1,14 +1,239 @@
 # Syrx.Validation
-A tiny little library with a very simple precondition checker and a handful of validation attributes. 
+
+A lightweight and efficient .NET validation library providing both precondition checking and attribute-based model validation. 
 
 
-## What
+## Overview
 
-The precondition checker the `Contract` class is probably the most useful as it can be used by any method. The `Validator` is pretty useful too, but really only useful for POCOs that are decorated with validation attributes. 
+Syrx.Validation consists of two main packages:
 
-## Why
+- **Syrx.Validation**: Core validation library with precondition checking
+- **Syrx.Validation.Attributes**: Attribute-based validation framework
 
-Checking conditions in your code is a good thing **but** it can get really verbose really quickly and ruin the readbility/intent of your code. More often than not, precondition checks take the form of multiline `if (condition) throw exception` statements. We wrote this library to convert the multiline statements into single line statements and give you control over which exceptions are thrown when the condition fails. 
+## Features
+
+- ✅ **Precondition Checking**: Validate method parameters with fluent syntax
+- ✅ **Attribute-Based Validation**: Declarative model validation using attributes
+- ✅ **High Performance**: Optimized for minimal overhead
+- ✅ **Modern .NET**: Supports .NET 8.0 and .NET 9.0 with nullable reference types
+- ✅ **Comprehensive**: Covers common validation scenarios out of the box
+- ✅ **Extensible**: Easy to extend with custom validation attributes
+
+## Quick Start
+
+### Installation
+
+Install via NuGet Package Manager:
+
+```powershell
+Install-Package Syrx.Validation
+Install-Package Syrx.Validation.Attributes
+```
+
+Or via .NET CLI:
+
+```bash
+dotnet add package Syrx.Validation
+dotnet add package Syrx.Validation.Attributes
+```
+
+### Basic Usage
+
+#### Precondition Checking
+
+```csharp
+using static Syrx.Validation.Contract;
+
+public void ProcessData(string input, int count)
+{
+    // Throw ArgumentNullException if input is null or empty
+    Throw<ArgumentNullException>(string.IsNullOrEmpty(input), "Input cannot be null or empty");
+    
+    // Throw ArgumentOutOfRangeException if count is negative
+    Throw<ArgumentOutOfRangeException>(count < 0, "Count must be non-negative");
+    
+    // Process the validated data
+    Console.WriteLine($"Processing {input} with count {count}");
+}
+```
+
+#### Attribute-Based Validation
+
+```csharp
+public class User
+{
+    [RequiredString(MinLength = 2, MaxLength = 50)]
+    public string FirstName { get; set; } = string.Empty;
+    
+    [RequiredString(Pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")]
+    public string Email { get; set; } = string.Empty;
+    
+    [RequiredRange(MinValue = 18, MaxValue = 120)]
+    public int Age { get; set; }
+    
+    [RequiredDate(RequiredDateOptions.FutureOnly)]
+    public DateTime AppointmentDate { get; set; }
+    
+    [RequiredGuid]
+    public Guid UserId { get; set; }
+    
+    [RequiredCollection(MinCount = 1)]
+    public List<string> Tags { get; set; } = new();
+}
+
+// Validate the model
+var user = new User { /* ... */ };
+var results = Validator.Validate(user);
+
+if (!results.IsValid)
+{
+    foreach (var error in results.ValidationErrors)
+    {
+        Console.WriteLine($"{error.PropertyName}: {error.ErrorMessage}");
+    }
+}
+```
+
+## API Reference
+
+### Syrx.Validation
+
+#### Contract Class
+
+The `Contract` class provides static methods for precondition checking:
+
+```csharp
+// Throw exception if condition is false
+Throw<TException>(bool condition, string message);
+Throw<TException>(bool condition, string message, params object[] args);
+Throw<TException>(bool condition, string message, Exception innerException);
+Throw<TException>(bool condition, string message, Exception innerException, params object[] args);
+Throw<TException>(bool condition, Func<TException> exceptionFactory);
+
+// Aliases for Throw methods (same signatures)
+Require<TException>(...);
+```
+
+**Examples:**
+
+```csharp
+// Basic usage
+Throw<ArgumentNullException>(value == null, "Value cannot be null");
+
+// With string formatting
+Throw<ArgumentException>(value < 0, "Value {0} must be non-negative", value);
+
+// With inner exception
+Throw<InvalidOperationException>(failed, "Operation failed", innerException);
+
+// With exception factory
+Throw<CustomException>(invalid, () => new CustomException("Custom message", data));
+
+// Using Require alias
+Require<ArgumentNullException>(value != null, "Value is required");
+```
+
+### Syrx.Validation.Attributes
+
+#### Validation Attributes
+
+##### RequiredStringAttribute
+
+Validates string properties with length and pattern constraints:
+
+```csharp
+[RequiredString] // Not null or empty
+[RequiredString(MinLength = 5)]
+[RequiredString(MaxLength = 100)]
+[RequiredString(MinLength = 5, MaxLength = 100)]
+[RequiredString(Pattern = @"^\d+$")] // Numbers only
+[RequiredString(MinLength = 5, Pattern = @"^[A-Z].*")] // Combined validation
+```
+
+##### RequiredRangeAttribute
+
+Validates numeric properties within specified ranges:
+
+```csharp
+[RequiredRange(MinValue = 0)] // Non-negative
+[RequiredRange(MaxValue = 100)] // Maximum value
+[RequiredRange(MinValue = 1, MaxValue = 10)] // Range
+[RequiredRange(MinValue = 0, IsMinInclusive = false)] // Exclusive minimum (> 0)
+[RequiredRange(MaxValue = 100, IsMaxInclusive = false)] // Exclusive maximum (< 100)
+```
+
+Supports all numeric types: `int`, `long`, `double`, `decimal`, `float`, `short`, `byte`, etc.
+
+##### RequiredDateAttribute
+
+Validates DateTime properties with various options:
+
+```csharp
+[RequiredDate] // Not default DateTime
+[RequiredDate(RequiredDateOptions.PastOnly)] // Must be in the past
+[RequiredDate(RequiredDateOptions.FutureOnly)] // Must be in the future
+[RequiredDate(RequiredDateOptions.TodayOrFuture)] // Today or future
+[RequiredDate(RequiredDateOptions.TodayOrPast)] // Today or past
+```
+
+##### RequiredGuidAttribute
+
+Validates Guid properties:
+
+```csharp
+[RequiredGuid] // Not Guid.Empty
+```
+
+##### RequiredCollectionAttribute
+
+Validates collection properties:
+
+```csharp
+[RequiredCollection] // Not null or empty
+[RequiredCollection(MinCount = 1)] // At least one item
+[RequiredCollection(MaxCount = 10)] // Maximum items
+[RequiredCollection(MinCount = 1, MaxCount = 5)] // Range of items
+```
+
+#### Validator Class
+
+Static validation methods:
+
+```csharp
+// Validate a single object
+ValidationResult result = Validator.Validate(object instance);
+
+// Check validation result
+if (result.IsValid)
+{
+    // Validation passed
+}
+else
+{
+    foreach (var error in result.ValidationErrors)
+    {
+        Console.WriteLine($"{error.PropertyName}: {error.ErrorMessage}");
+    }
+}
+```
+
+#### ValidationResult Class
+
+Contains validation results:
+
+```csharp
+public class ValidationResult
+{
+    public bool IsValid { get; }
+    public IReadOnlyList<ValidationError> ValidationErrors { get; }
+}
+
+public class ValidationError
+{
+    public string PropertyName { get; }
+    public string ErrorMessage { get; }
+}
+``` 
 
 ## Example
 
@@ -137,17 +362,53 @@ public class Person
 
 ```
 
-### That's great! Where can I get this?
+## Framework Support
 
-[Nuget](https://www.nuget.org/packages/Syrx.Validation/), of course. 
+- **.NET 8.0**: Full support with nullable reference types and performance optimizations
+- **.NET 9.0**: Full support with latest runtime improvements
 
-```Install-Package Syrx.Validation```
+## Documentation
 
+- **[Architecture Guide](.docs/architecture.md)**: Detailed technical architecture and design patterns
+- **[Syrx.Validation Guide](.docs/Syrx.Validation.README.md)**: Comprehensive guide for the core validation library
+- **[Syrx.Validation.Attributes Guide](.docs/Syrx.Validation.Attributes.README.md)**: Complete reference for attribute-based validation
 
-#### Anything else I should know? 
+## Installation
 
-First, I find that the `Contract.Throw<T>` method is insanely useful. Your mileage may vary. You might like using this library. Then again, you might not. I hope you do. 
+### NuGet Package Manager
 
-Second, this is probably the most documentation that you're going to get on this. It's a really simple library and you're smart. 
+```powershell
+Install-Package Syrx.Validation
+Install-Package Syrx.Validation.Attributes
+```
 
-Thanks! 
+### .NET CLI
+
+```bash
+dotnet add package Syrx.Validation
+dotnet add package Syrx.Validation.Attributes
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the [license.txt](license.txt) file for details.
+
+## Changelog
+
+### Version 3.0.0
+- **BREAKING CHANGE**: Removed .NET 6.0 support
+- Added .NET 9.0 support
+- Now targets .NET 8.0 and .NET 9.0
+- Enhanced attribute validation with new attributes: RequiredRangeAttribute and RequiredStringAttribute
+
+### Version 2.0.0
+- Added comprehensive attribute-based validation framework
+- Enhanced precondition checking with exception factories
+- Improved nullable reference type support
+
+### Version 1.0.0
+- Initial release with core precondition checking functionality 

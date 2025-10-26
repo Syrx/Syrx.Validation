@@ -3,6 +3,7 @@
 // date             : 2015.12.23
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
+#nullable enable
 
 namespace Syrx.Validation.Attributes
 {
@@ -21,7 +22,7 @@ namespace Syrx.Validation.Attributes
             MaximumCount = maximumCount;
         }
         
-        public override bool IsValid(object value)
+        public override bool IsValid(object? value)
         {            
             Throw<ArgumentNullException>(value != null, "The object passed to the attribute was null.");            
 
@@ -31,14 +32,14 @@ namespace Syrx.Validation.Attributes
             if (length < MinimumCount)
             {
                 // doesn't meet minimum length
-                ErrorMessage = $"The collection length of {length} is less than the minimum required of {MinimumCount}";
+                ErrorMessage = string.Format(ErrorMessages.CollectionTooSmall, length, MinimumCount);
                 return false;
             }
 
             // max length is allowed to be zero. 
-            if (MaximumCount == 0) return true;
+            if (MaximumCount == ValidationConstants.NoMaximumLimit) return true;
             if (length <= MaximumCount) return true;
-            ErrorMessage = $"The collection length of {length} is greated than the maximum required of {MaximumCount}";
+            ErrorMessage = string.Format(ErrorMessages.CollectionTooLarge, length, MaximumCount);
             return false;
         }
     }

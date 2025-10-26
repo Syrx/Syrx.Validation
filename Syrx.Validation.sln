@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{A38A4CE4-4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Validation", "src\Syrx.Validation\Syrx.Validation.csproj", "{3D139901-B609-4B6B-A576-D697CB9803BB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Validation.Tests", "tests\unit\Syrx.Validation.Tests\Syrx.Validation.Tests.csproj", "{F4666712-8D1D-4C50-A86C-49E28302A2C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Validation.Tests.Unit", "tests\unit\Syrx.Validation.Tests.Unit\Syrx.Validation.Tests.Unit.csproj", "{F4666712-8D1D-4C50-A86C-49E28302A2C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syrx.Validation.Attributes", "src\Syrx.Validation.Attributes\Syrx.Validation.Attributes.csproj", "{13A4C158-D1E0-4966-AA9A-0987EADE12E2}"
 EndProject

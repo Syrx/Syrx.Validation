@@ -3,6 +3,7 @@
 // date             : 2015.12.23
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
+#nullable enable
 
 namespace Syrx.Validation.Attributes
 {
@@ -15,9 +16,9 @@ namespace Syrx.Validation.Attributes
         /// <summary>
         /// Attempts to validate a model based on its property attributes.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="item"></param>
-        public static void Validate<T>(T item)
+        /// <typeparam name="T">The type of item to validate.</typeparam>
+        /// <param name="item">The item to validate.</param>
+        public static void Validate<T>(T? item)
         {
             // kick out nulls
             Throw<ArgumentNullException>(item != null, "The item passed for validation was null.");
@@ -36,17 +37,18 @@ namespace Syrx.Validation.Attributes
             );
 
             if (isValid) return;
-            // build up the validation error message. 
-            var builder = new StringBuilder();                
-            foreach (var result in results)
+            // build up the validation error message using string join for better performance
+            var errorMessages = results.Select(r => r.ErrorMessage).Where(msg => !string.IsNullOrEmpty(msg));
+            var combinedMessage = string.Join("\r\n", errorMessages);
+            if (!string.IsNullOrEmpty(combinedMessage))
             {
-                builder.Append($"{result.ErrorMessage}\r\n");
+                combinedMessage += "\r\n"; // Preserve original behavior of adding trailing newline
             }
 
-            throw new ValidationException(builder.ToString());
+            throw new ValidationException(combinedMessage);
         }
 
-        public static void ValidateCollection<T>(IEnumerable<T> items)
+        public static void ValidateCollection<T>(IEnumerable<T>? items)
         {
             Throw<ArgumentNullException>(items != null, "The collection passed for validation was null.");
             foreach (var item in items)
