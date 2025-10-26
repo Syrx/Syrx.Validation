@@ -263,3 +263,4 @@ __pycache__/
 # NCrunch files 
 *.ncrunchproject
 *.ncrunchsolution
+.NCrunch_Syrx.Validation/

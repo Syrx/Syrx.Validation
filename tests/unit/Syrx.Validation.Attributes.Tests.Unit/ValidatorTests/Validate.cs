@@ -1,17 +1,10 @@
-﻿// ============================================================================================================================= 
+// ============================================================================================================================= 
 // author           : david sexton (@sextondjc | sextondjc.com)
 // date             : 2015.12.23
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
 
 // not to be confused with System.ComponentModel.DataAnnotations Validator. 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Xunit;
-using static Syrx.Validation.Attributes.Validator;
-using static Xunit.Assert;
-
 namespace Syrx.Validation.Attributes.Tests.Unit.ValidatorTests
 {    
     public class Validate

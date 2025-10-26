@@ -5,11 +5,6 @@
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
 
-using System;
-using Xunit;
-using static Syrx.Validation.Contract;
-using static Xunit.Assert;
-
 namespace Syrx.Validation.Tests.ContractTests
 {
     public class Throw

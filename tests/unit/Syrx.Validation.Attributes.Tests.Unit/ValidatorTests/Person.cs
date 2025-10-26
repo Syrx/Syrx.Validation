@@ -1,6 +1,3 @@
-﻿using System;
-using static Syrx.Validation.Contract;
-
 namespace Syrx.Validation.Attributes.Tests.Unit.ValidatorTests
 {
     public class Person

@@ -5,10 +5,6 @@
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
 
-using System;
-using Xunit;
-using static Xunit.Assert;
-
 namespace Syrx.Validation.Attributes.Tests.Unit.RequiredDateAttributeTests
 {    
     public class IsValid
@@ -140,13 +136,51 @@ namespace Syrx.Validation.Attributes.Tests.Unit.RequiredDateAttributeTests
         }
 
         [Fact]
-        public void NoneAndPastOnlyIsSupported()
+        public void IsValid_DateTime_PastOnly_PassesValidation()
         {
             var value = DateTime.Now.AddDays(-1);
             var options = RequiredDateOptions.None | RequiredDateOptions.PastOnly;
             var attribute = new RequiredDateAttribute(options);
             var result = attribute.IsValid(value);
             True(result);
+        }
+
+        [Fact]
+        public void IsValid_PastOnly_WithFutureDate_ReturnsFalse()
+        {
+            var attribute = new RequiredDateAttribute(RequiredDateOptions.PastOnly);
+            var futureDate = DateTime.Now.AddDays(1);
+            var result = attribute.IsValid(futureDate);
+            False(result);
+            Contains("must be in UTC and in the past", attribute.ErrorMessage);
+        }
+
+        [Fact]
+        public void IsValid_FutureOnly_WithPastDate_ReturnsFalse()
+        {
+            var attribute = new RequiredDateAttribute(RequiredDateOptions.FutureOnly);
+            var pastDate = DateTime.Now.AddDays(-1);
+            var result = attribute.IsValid(pastDate);
+            False(result);
+            Contains("must be in UTC and in the future", attribute.ErrorMessage);
+        }
+
+        [Fact]
+        public void IsValid_UtcOnly_WithLocalTime_ReturnsFalse()
+        {
+            var attribute = new RequiredDateAttribute(RequiredDateOptions.UtcOnly);
+            var localTime = DateTime.Now; // Local time
+            var result = attribute.IsValid(localTime);
+            False(result);
+        }
+
+        [Fact]
+        public void IsValid_NotUtc_WithUtcTime_ReturnsFalse()
+        {
+            var attribute = new RequiredDateAttribute(RequiredDateOptions.NotUtc);
+            var utcTime = DateTime.UtcNow;
+            var result = attribute.IsValid(utcTime);
+            False(result);
         }
 
     }

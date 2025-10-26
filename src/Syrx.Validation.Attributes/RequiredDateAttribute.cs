@@ -3,6 +3,7 @@
 // date             : 2015.12.23
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
+#nullable enable
 
 namespace Syrx.Validation.Attributes
 {
@@ -27,7 +28,7 @@ namespace Syrx.Validation.Attributes
             Options = options;
         }
         
-        public override bool IsValid(object value)
+        public override bool IsValid(object? value)
         {
             // preconditions. 
             Throw<ArgumentNullException>(value != null, "A value must be supplied to the RequiredDateAttribute.");
@@ -44,33 +45,33 @@ namespace Syrx.Validation.Attributes
                     break;
                 case NotUtc:
                     result = (toValidate.Kind != DateTimeKind.Utc);
-                    ErrorMessage = "The DateTime supplied should not be in UTC.";
+                    ErrorMessage = ErrorMessages.DateMustNotBeUtc;
                     break;
                 case UtcOnly:
                     result = (toValidate.Kind == DateTimeKind.Utc);
-                    ErrorMessage = "The DateTime supplied must be in UTC.";
+                    ErrorMessage = ErrorMessages.DateMustBeUtc;
                     break;
                 case FutureOnly:
                 case UtcOnly | FutureOnly:
                     result = (toValidate > DateTime.UtcNow);
-                    ErrorMessage = "The DateTime supplied must be in UTC and in the future.";
+                    ErrorMessage = ErrorMessages.DateMustBeUtcAndInFuture;
                     break;
                 case PastOnly:
                 case UtcOnly | PastOnly:
                     result = (toValidate < DateTime.UtcNow);
-                    ErrorMessage = "The DateTime supplied must be in UTC and in the past.";
+                    ErrorMessage = ErrorMessages.DateMustBeUtcAndInPast;
                     break;                
                 case NotUtc | FutureOnly:
                     result = ((toValidate.Kind != DateTimeKind.Utc) && (toValidate > DateTime.Now));
-                    ErrorMessage = "The DateTime supplied should not be in UTC and must be in the future.";
+                    ErrorMessage = ErrorMessages.DateMustBeNonUtcAndInFuture;
                     break;
                 case NotUtc | PastOnly:
                     result = ((toValidate.Kind != DateTimeKind.Utc) && (toValidate < DateTime.Now));
-                    ErrorMessage = "The DateTime supplied should not be in UTC and must be in the past.";
+                    ErrorMessage = ErrorMessages.DateMustBeNonUtcAndInPast;
                     break;
                 default:
                     // some crazy case which isn't supported.
-                    ErrorMessage = "The DateTime supplied did not pass validation. Please check that it meets supported validation rules.";                    
+                    ErrorMessage = ErrorMessages.DateValidationFailed;                    
                     break;
                 
             }

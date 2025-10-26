@@ -1,14 +1,9 @@
-﻿// ============================================================================================================================= 
+// ============================================================================================================================= 
 // author           : david sexton (@sextondjc | sextondjc.com)
 // date             : 2015.12.23
 // modified         : 2017-03-11 (16:25)
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
-
-using System;
-using System.Collections.Generic;
-using Xunit;
-using static Xunit.Assert;
 
 namespace Syrx.Validation.Attributes.Tests.Unit.RequiredCollectionAttributeTests
 {    

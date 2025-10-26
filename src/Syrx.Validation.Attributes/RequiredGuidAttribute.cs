@@ -3,8 +3,7 @@
 // date             : 2015.12.23
 // licence          : licensed under the terms of the MIT license. See LICENSE.txt
 // =============================================================================================================================
-using System;
-using System.ComponentModel.DataAnnotations;
+#nullable enable
 
 namespace Syrx.Validation.Attributes
 {
@@ -14,7 +13,7 @@ namespace Syrx.Validation.Attributes
     /// </summary>
     public class RequiredGuidAttribute : ValidationAttribute
     {
-        public override bool IsValid(object value)
+        public override bool IsValid(object? value)
         {
             // checks:
             // 1. not null
@@ -33,17 +32,17 @@ namespace Syrx.Validation.Attributes
                     }
                     else
                     {
-                        ErrorMessage = "The property may not be an empty GUID";
+                        ErrorMessage = ErrorMessages.GuidCannotBeEmpty;
                     }
                 }
                 else
                 {
-                    ErrorMessage = "The property must be of type GUID";
+                    ErrorMessage = ErrorMessages.ValueMustBeGuid;
                 }
             }
             else
             {
-                ErrorMessage = "The GUID property may not be null";
+                ErrorMessage = ErrorMessages.ValueCannotBeNull;
             }
             
             return result;

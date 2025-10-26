@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <AssemblyName>Syrx.Validation.Attributes</AssemblyName>
     <RootNamespace>Syrx.Validation.Attributes</RootNamespace>
-    <Version>1.0.0</Version>
+    <Version>3.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>sextondjc</Authors>
     <Company>Syrx</Company>
@@ -13,7 +13,8 @@
     <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/Syrx/Syrx.Validation</RepositoryUrl>
     <Description>Validation attributes to be used out of the box.</Description>
-    <PackageReleaseNotes>Now with added delegates!</PackageReleaseNotes>
+    <PackageReleaseNotes>Version 3.0.0: Breaking change - Removed .NET 6.0 support, added .NET 9.0 support. Now targets .NET 8.0 and .NET 9.0. Enhanced with new validation attributes: RequiredRangeAttribute and RequiredStringAttribute.</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <LangVersion>default</LangVersion>
   </PropertyGroup>
 
@@ -48,5 +49,9 @@
 	<PropertyGroup>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
 </Project>
